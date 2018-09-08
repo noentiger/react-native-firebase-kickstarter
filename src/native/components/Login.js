@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Form, Item, Label, Input, Text, Button, View,
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import firebase from 'react-native-firebase';
 import Loading from './Loading';
 import Messages from './Messages';
 import { translate } from '../../i18n';
 import Header from './Header';
 import Spacer from './Spacer';
 
-class Login extends React.Component {
+class Login extends Component {
   static propTypes = {
     member: PropTypes.shape({
       email: PropTypes.string,
@@ -44,10 +45,23 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { onFormSubmit } = this.props;
     onFormSubmit(this.state)
-      .then(() => Actions.tabbar())
+      .then( async () => {
+
+        Actions.tabbar();
+
+        const enabled = await firebase.messaging().hasPermission();
+        if (!enabled) {
+          try {
+              await firebase.messaging().requestPermission();
+              // User has authorised
+          } catch (error) {
+              // User has rejected permissions
+          }
+        }
+      })
       .catch(e => console.log(`Error: ${e}`));
   }
 

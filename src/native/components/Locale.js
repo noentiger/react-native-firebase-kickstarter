@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Text, Button, ActionSheet,
@@ -10,7 +10,7 @@ import Header from './Header';
 
 import { Translations } from '../../i18n';
 
-class Locale extends React.Component {
+class Locale extends Component {
   static propTypes = {
     locale: PropTypes.string.isRequired,
     error: PropTypes.string,

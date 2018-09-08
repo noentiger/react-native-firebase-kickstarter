@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>360395825752-mrglchcj71j88afg3f9ktm7gucjunird.apps.googleusercontent.com</string>
+	<string>598456134004-c54vo9sfl53079u668vcq1s8khfvlqb4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.360395825752-mrglchcj71j88afg3f9ktm7gucjunird</string>
+	<string>com.googleusercontent.apps.598456134004-c54vo9sfl53079u668vcq1s8khfvlqb4</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAdQDbCE_KKS0EFM8vz1JqqW7EOYpHawFg</string>
+	<string>AIzaSyAzIEh8G65cLWVGExE3coyzVVMbQfXh-dU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>360395825752</string>
+	<string>598456134004</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.bbhstockholm.reactnativefirebaseboilerplate</string>
+	<string>com.bartleboglehegarty.rnkickstarter</string>
 	<key>PROJECT_ID</key>
-	<string>fir-boilerplate-3cb38</string>
+	<string>kickstarter-kit</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-boilerplate-3cb38.appspot.com</string>
+	<string>kickstarter-kit.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:360395825752:ios:6e800ab07e162e04</string>
+	<string>1:598456134004:ios:bf52726b07e0b006</string>
 	<key>DATABASE_URL</key>
-	<string>https://fir-boilerplate-3cb38.firebaseio.com</string>
+	<string>https://kickstarter-kit.firebaseio.com</string>
 </dict>
 </plist>

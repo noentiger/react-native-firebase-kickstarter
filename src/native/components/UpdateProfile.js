@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Text, Body, ListItem, Form, Item, Label, Input, CheckBox, Button, View,
 } from 'native-base';
-import firebase from 'react-native-firebase';
 import Messages from './Messages';
 import Loading from './Loading';
 import Header from './Header';
 import Spacer from './Spacer';
 
-class UpdateProfile extends React.Component {
+class UpdateProfile extends Component {
   static propTypes = {
     error: PropTypes.string,
     success: PropTypes.string,
@@ -49,23 +48,7 @@ class UpdateProfile extends React.Component {
     });
   }
 
-  handleSubmit = async () => {
-
-    const enabled = await firebase.messaging().hasPermission();
-    if (enabled) {
-        const fcmToken = await firebase.messaging().getToken();
-        console.log("enabled", fcmToken);
-        // user has permissions
-    } else {
-      try {
-          await firebase.messaging().requestPermission();
-          // User has authorised
-      } catch (error) {
-          // User has rejected permissions
-      }
-        // user doesn't have permission
-    }
-
+  handleSubmit = () => {
     const { onFormSubmit } = this.props;
     onFormSubmit(this.state)
       .then(() => console.log('Profile Updated'))

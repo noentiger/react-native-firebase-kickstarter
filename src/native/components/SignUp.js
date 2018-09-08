@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Text, Form, Item, Label, Input, Button,
@@ -9,7 +9,7 @@ import Messages from './Messages';
 import Header from './Header';
 import Spacer from './Spacer';
 
-class SignUp extends React.Component {
+class SignUp extends Component {
   static propTypes = {
     error: PropTypes.string,
     loading: PropTypes.bool.isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Content, Text, Form, Item, Label, Input, Button,
@@ -9,7 +9,7 @@ import Messages from './Messages';
 import Header from './Header';
 import Spacer from './Spacer';
 
-class ForgotPassword extends React.Component {
+class ForgotPassword extends Component {
   static propTypes = {
     member: PropTypes.shape({
       email: PropTypes.string,

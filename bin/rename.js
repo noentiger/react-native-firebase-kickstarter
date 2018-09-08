@@ -3,9 +3,9 @@ const readline = require('readline');
 const replace = require('replace-in-file');
 
 const BASE_DIRECTORY = './';
-const DEFAULT_COMPANY_NAME = 'invertase';
-const DEFAULT_PACKAGE_NAME = 'com.invertase.rnfirebasestarter';
-const DEFAULT_PROJECT_NAME = 'RNFirebaseStarter';
+const DEFAULT_COMPANY_NAME = 'bartleboglehegarty';
+const DEFAULT_PACKAGE_NAME = 'com.bartleboglehegarty.rnkickstarter';
+const DEFAULT_PROJECT_NAME = 'RNKickstarter';
 const VALID_CHARACTERS = /^[a-zA-Z\s]+$/;
 
 const rl = readline.createInterface({
@@ -130,7 +130,7 @@ const run = async () => {
     if (!projectName.match(VALID_CHARACTERS)) {
         throw new Error('ERROR: The project name must only contain letters or spaces');
     }
-    
+
     let companyName = await readInput('Company name, e.g. My Company');
     console.log('---------------------------------------------------------');
     if (!companyName || companyName === '' || companyName.trim() === '') {
@@ -139,14 +139,14 @@ const run = async () => {
     if (!companyName.match(VALID_CHARACTERS)) {
         throw new Error('ERROR: The company name must only contain letters or spaces');
     }
-    
+
     projectName = projectName.replace(/ /g, '');
     companyName = companyName.replace(/ /g, '').toLowerCase();
-    
+
     const packageName = `com.${companyName}.${projectName.toLowerCase()}`;
     // Close the input
     rl.close();
-    
+
     updateProjectName(projectName)
         .then(() => updatePackageName(packageName))
         .then(() => renameProjectFiles(projectName))
