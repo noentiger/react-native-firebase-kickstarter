@@ -6,7 +6,8 @@
     "development": {
       "plugins": [
         "transform-react-jsx-source",
-        "functional-hmr"
+        "functional-hmr",
+        "transform-decorators-legacy"
       ]
     }
   }

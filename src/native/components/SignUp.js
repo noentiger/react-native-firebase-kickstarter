@@ -27,7 +27,6 @@ class SignUp extends Component {
       lastName: '',
       email: '',
       password: '',
-      password2: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -93,13 +92,6 @@ Email
 Password
               </Label>
               <Input secureTextEntry onChangeText={v => this.handleChange('password', v)} />
-            </Item>
-
-            <Item stackedLabel>
-              <Label>
-Confirm Password
-              </Label>
-              <Input secureTextEntry onChangeText={v => this.handleChange('password2', v)} />
             </Item>
 
             <Spacer size={20} />

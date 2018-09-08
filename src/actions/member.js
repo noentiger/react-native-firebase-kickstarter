@@ -1,6 +1,6 @@
 import ErrorMessages from '../constants/errors';
 import statusMessage from './status';
-import firebase from 'react-native-firebase';
+import { Firebase } from '../lib/firebase';
 
 /**
   * Sign Up to Firebase
@@ -9,7 +9,6 @@ export function signUp(formData) {
   const {
     email,
     password,
-    password2,
     firstName,
     lastName,
   } = formData;
@@ -20,22 +19,20 @@ export function signUp(formData) {
     if (!lastName) return reject({ message: ErrorMessages.missingLastName });
     if (!email) return reject({ message: ErrorMessages.missingEmail });
     if (!password) return reject({ message: ErrorMessages.missingPassword });
-    if (!password2) return reject({ message: ErrorMessages.missingPassword });
-    if (password !== password2) return reject({ message: ErrorMessages.passwordsDontMatch });
 
     await statusMessage(dispatch, 'loading', true);
 
     // Go to Firebase
-    return firebase.auth()
-      .createUserAndRetrieveDataWithEmailAndPassword(email, password)
+    return Firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
       .then((res) => {
         // Send user details to Firebase database
         if (res && res.user && res.user.uid) {
-          firebase.database().ref().child(`users/${res.user.uid}`).set({
+          Firebase.database().ref().child(`users/${res.user.uid}`).set({
             firstName,
             lastName,
-            signedUp: firebase.database.ServerValue.TIMESTAMP,
-            lastLoggedIn: firebase.database.ServerValue.TIMESTAMP,
+            signedUp: Firebase.database.ServerValue.TIMESTAMP,
+            lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
           }).then(() => statusMessage(dispatch, 'loading', false).then(resolve));
         }
       }).catch(reject);
@@ -47,16 +44,16 @@ export function signUp(formData) {
   */
 function getUserData(dispatch) {
   const UID = (
-    firebase
-    && firebase.database().ref()
-    && firebase.auth()
-    && firebase.auth().currentUser
-    && firebase.auth().currentUser.uid
-  ) ? firebase.auth().currentUser.uid : null;
+    Firebase
+    && Firebase.database().ref()
+    && Firebase.auth()
+    && Firebase.auth().currentUser
+    && Firebase.auth().currentUser.uid
+  ) ? Firebase.auth().currentUser.uid : null;
 
   if (!UID) return false;
 
-  const ref = firebase.database().ref().child(`users/${UID}`);
+  const ref = Firebase.database().ref().child(`users/${UID}`);
 
   return ref.on('value', (snapshot) => {
     const userData = snapshot.val() || [];
@@ -71,7 +68,7 @@ function getUserData(dispatch) {
 export function getMemberData() {
   // Ensure token is up to date
   return dispatch => new Promise((resolve) => {
-    firebase.auth().onAuthStateChanged((loggedIn) => {
+    Firebase.auth().onAuthStateChanged((loggedIn) => {
       if (loggedIn) {
         return resolve(getUserData(dispatch));
       }
@@ -98,20 +95,20 @@ export function login(formData) {
     if (!password) return reject({ message: ErrorMessages.missingPassword });
 
     // Go to Firebase
-    return firebase.auth()
-      .signInAndRetrieveDataWithEmailAndPassword(email, password)
+    return Firebase.auth()
+      .signInWithEmailAndPassword(email, password)
       .then(async (res) => {
         const user = res && res.user ? res.user : null;
 
         if (user.uid) {
           // Update last logged in data
-          firebase.database().ref().child(`users/${user.uid}`).update({
-            lastLoggedIn: firebase.database.ServerValue.TIMESTAMP,
+          Firebase.database().ref().child(`users/${user.uid}`).update({
+            lastLoggedIn: Firebase.database.ServerValue.TIMESTAMP,
           });
 
           // Send verification Email when email hasn't been verified
           if (user.emailVerified === false) {
-            firebase.auth().currentUser
+            Firebase.auth().currentUser
               .sendEmailVerification()
               .catch(() => console.log('Verification email failed to send'));
           }
@@ -145,7 +142,7 @@ export function resetPassword(formData) {
     await statusMessage(dispatch, 'loading', true);
 
     // Go to Firebase
-    return firebase.auth()
+    return Firebase.auth()
       .sendPasswordResetEmail(email)
       .then(() => statusMessage(dispatch, 'loading', false).then(resolve(dispatch({ type: 'USER_RESET' }))))
       .catch(reject);
@@ -159,7 +156,6 @@ export function updateProfile(formData) {
   const {
     email,
     password,
-    password2,
     firstName,
     lastName,
     changeEmail,
@@ -168,7 +164,7 @@ export function updateProfile(formData) {
 
   return dispatch => new Promise(async (resolve, reject) => {
     // Are they a user?
-    const UID = firebase.auth().currentUser.uid;
+    const UID = Firebase.auth().currentUser.uid;
     if (!UID) return reject({ message: ErrorMessages.missingFirstName });
 
     // Validation checks
@@ -179,23 +175,21 @@ export function updateProfile(formData) {
     }
     if (changePassword) {
       if (!password) return reject({ message: ErrorMessages.missingPassword });
-      if (!password2) return reject({ message: ErrorMessages.missingPassword });
-      if (password !== password2) return reject({ message: ErrorMessages.passwordsDontMatch });
     }
 
     await statusMessage(dispatch, 'loading', true);
 
     // Go to Firebase
-    return firebase.database().ref().child(`users/${UID}`).update({ firstName, lastName })
+    return Firebase.database().ref().child(`users/${UID}`).update({ firstName, lastName })
       .then(async () => {
         // Update Email address
         if (changeEmail) {
-          await firebase.auth().currentUser.updateEmail(email).catch(reject);
+          await Firebase.auth().currentUser.updateEmail(email).catch(reject);
         }
 
         // Change the password
         if (changePassword) {
-          await firebase.auth().currentUser.updatePassword(password).catch(reject);
+          await Firebase.auth().currentUser.updatePassword(password).catch(reject);
         }
 
         // Update Redux
@@ -211,7 +205,7 @@ export function updateProfile(formData) {
   */
 export function logout() {
   return dispatch => new Promise((resolve, reject) => {
-    firebase.auth().signOut()
+    Firebase.auth().signOut()
       .then(() => {
         dispatch({ type: 'USER_RESET' });
         setTimeout(resolve, 1000); // Resolve after 1s so that user sees a message

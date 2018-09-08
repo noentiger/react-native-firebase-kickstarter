@@ -33,7 +33,6 @@ class UpdateProfile extends Component {
       lastName: props.member.lastName || '',
       email: props.member.email || '',
       password: '',
-      password2: '',
       changeEmail: false,
       changePassword: false,
     };
@@ -148,13 +147,6 @@ class UpdateProfile extends Component {
                     Password
                   </Label>
                   <Input secureTextEntry onChangeText={v => this.handleChange('password', v)} />
-                </Item>
-
-                <Item stackedLabel last>
-                  <Label>
-                    Confirm Password
-                  </Label>
-                  <Input secureTextEntry onChangeText={v => this.handleChange('password2', v)} />
                 </Item>
               </View>
               )

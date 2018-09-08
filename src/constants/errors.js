@@ -13,7 +13,6 @@ export default {
   missingLastName: 'Last name is missing',
   missingEmail: 'Email is missing',
   missingPassword: 'Password is missing',
-  passwordsDontMatch: 'Passwords do not match',
 
   // Recipes
   recipe404: 'Recipe not found',

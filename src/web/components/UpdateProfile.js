@@ -40,7 +40,6 @@ class UpdateProfile extends React.Component {
       lastName: props.member.lastName || '',
       email: props.member.email || '',
       password: '',
-      password2: '',
       changeEmail: false,
       changePassword: false,
     };
@@ -74,7 +73,6 @@ class UpdateProfile extends React.Component {
       email,
       changePassword,
       password,
-      password2,
     } = this.state;
 
     // Loading
@@ -180,19 +178,6 @@ class UpdateProfile extends React.Component {
                           id="password"
                           placeholder="••••••••"
                           value={password}
-                          onChange={this.handleChange}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label for="password2">
-                          Confirm Password
-                        </Label>
-                        <Input
-                          type="password"
-                          name="password2"
-                          id="password2"
-                          placeholder="••••••••"
-                          value={password2}
                           onChange={this.handleChange}
                         />
                       </FormGroup>

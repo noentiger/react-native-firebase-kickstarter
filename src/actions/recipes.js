@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase';
+import { Firebase } from '../lib/firebase';
 /**
   * Get this User's Favourite Recipes
   */
@@ -6,7 +6,7 @@ export function getFavourites(dispatch) {
   const UID = auth().currentUser.uid;
   if (!UID) return false;
 
-  const ref = firebase.database().ref().child(`favourites/${UID}`);
+  const ref = Firebase.database().ref().child(`favourites/${UID}`);
 
   return ref.on('value', (snapshot) => {
     const favs = snapshot.val() || [];
@@ -35,14 +35,14 @@ export function replaceFavourites(newFavourites) {
   const UID = auth().currentUser.uid;
   if (!UID) return false;
 
-  return () => firebase.database().ref().child(`favourites/${UID}`).set(newFavourites);
+  return () => Firebase.database().ref().child(`favourites/${UID}`).set(newFavourites);
 }
 
 /**
   * Get Meals
   */
 export function getMeals() {
-  return dispatch => new Promise((resolve, reject) => firebase.database().ref()
+  return dispatch => new Promise((resolve, reject) => Firebase.database().ref()
     .child('meals').once('value')
     .then((snapshot) => {
       const meals = snapshot.val() || {};
@@ -68,7 +68,7 @@ export function setError(message) {
   * Get Recipes
   */
 export function getRecipes() {
-  return dispatch => new Promise(resolve => firebase.database().ref().child('recipes')
+  return dispatch => new Promise(resolve => Firebase.database().ref().child('recipes')
     .on('value', (snapshot) => {
       const recipes = snapshot.val() || {};
 

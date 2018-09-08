@@ -37,7 +37,6 @@ class SignUp extends React.Component {
       lastName: '',
       email: '',
       password: '',
-      password2: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -65,7 +64,6 @@ class SignUp extends React.Component {
       lastName,
       email,
       password,
-      password2,
     } = this.state;
 
     // Loading
@@ -136,19 +134,6 @@ class SignUp extends React.Component {
                       id="password"
                       placeholder="••••••••"
                       value={password}
-                      onChange={this.handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="password2">
-                      Confirm Password
-                    </Label>
-                    <Input
-                      type="password"
-                      name="password2"
-                      id="password2"
-                      placeholder="••••••••"
-                      value={password2}
                       onChange={this.handleChange}
                     />
                   </FormGroup>

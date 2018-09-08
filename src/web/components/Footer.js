@@ -8,7 +8,7 @@ const Footer = () => (
         <p>
           Based on the
           {' '}
-          <a target="_blank" rel="noopener noreferrer" href="https://github.com/mcnamee/react-native-starter-kit">
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/monterosa/react-native-kickstarter-kit">
             Github Repo
           </a>
           {' '}

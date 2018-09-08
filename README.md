@@ -45,6 +45,7 @@ The project is _super_ helpful to kick-start your next project, as it provides a
 - [ ] Firebase A/B Testing
 - [ ] Firebase Remote Config
 - [ ] Firebase Dynamic Links
+- [ ] Code Splitting
 
 ## 📖 Docs
 

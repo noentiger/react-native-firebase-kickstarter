@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Content, Form, Item, Label, Input, Text, Button, View,
+  Container, Content, Form, Item, Label, Input, Text, Button, View, Icon,
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
@@ -10,6 +10,10 @@ import Messages from './Messages';
 import { translate } from '../../i18n';
 import Header from './Header';
 import Spacer from './Spacer';
+
+const socialColors = {
+  facebook: '#3B5998',
+};
 
 class Login extends Component {
   static propTypes = {
@@ -65,6 +69,23 @@ class Login extends Component {
       .catch(e => console.log(`Error: ${e}`));
   }
 
+  handleLoginWithFacebook = () => {
+    // LoginManager.logInWithReadPermissions(['public_profile']).then(
+    //   function(result) {
+    //     if (result.isCancelled) {
+    //       console.log('Login was cancelled');
+    //     } else {
+    //       console.log('Login was successful with permissions: '
+    //         + result.grantedPermissions.toString());
+    //       console.log("result", result);
+    //     }
+    //   },
+    //   function(error) {
+    //     alert('Login failed with error: ' + error);
+    //   }
+    // );
+  }
+
   render() {
     const { loading, error, locale } = this.props;
     const { email } = this.state;
@@ -111,6 +132,13 @@ class Login extends Component {
               <Button block onPress={this.handleSubmit}>
                 <Text>
                   {translate('Login', locale)}
+                </Text>
+              </Button>
+              <Spacer size={5} />
+              <Button style={{backgroundColor:socialColors.facebook}} iconLeft primary block onPress={this.handleLoginWithFacebook}>
+                <Icon name="logo-facebook" />
+                <Text>
+                  {translate('Login With Facebook', locale)}
                 </Text>
               </Button>
             </View>
